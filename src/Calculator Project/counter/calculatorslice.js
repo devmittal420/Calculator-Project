@@ -94,20 +94,6 @@ const CalculatorSlice = createSlice({
       if (state.inputStr === "") {
         state.inputStr = "0";
       }
-
-      // Re-calculate if `inputStr` is valid for an expression
-      try {
-        // You may want to use `eval` here carefully, or parse `inputStr` with another method
-        const expression = state.inputStr.replace(/[^-+*/%0-9]/g, ""); // remove any invalid characters
-        state.result = eval(expression) || "0"; // evaluates expression or sets to "0"
-      } catch (error) {
-        state.result = "0"; // reset if expression is invalid
-      }
-
-      if (state.inputStr !== "0" && state.currentValue === "0") {
-        state.previousValue = "";
-        state.operator = null;
-      }
     },
   },
 });

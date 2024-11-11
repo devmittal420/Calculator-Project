@@ -1,6 +1,6 @@
 import "/src/index.css";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   inputValue,
   setOperator,
@@ -11,6 +11,7 @@ import {
 
 const Calculator = () => {
   const [calculatorColor, setCalculatorColor] = useState("#FFDAB9");
+  const [showCover, setShowCover] = useState(true);
   const colors = [
     "#FF6347",
     "#40E0D0",
@@ -40,8 +41,6 @@ const Calculator = () => {
   useEffect(() => {
     const onHandleKey = (e) => {
       const { key } = e;
-      console.log("key: ", key);
-
       if (!isNaN(key)) {
         dispatch(inputValue(key));
       } else if (key === "+" || key === "-" || key === "*" || key === "/") {
@@ -55,7 +54,9 @@ const Calculator = () => {
       }
     };
     window.addEventListener("keydown", onHandleKey);
-  }, []);
+    return () => window.removeEventListener("keydown", onHandleKey);
+  }, [dispatch]);
+
   const onHandleNumber = (num) => {
     dispatch(inputValue(num));
   };
@@ -68,20 +69,48 @@ const Calculator = () => {
   const onHandleClear = () => {
     dispatch(clearDisplay());
   };
-  const onHandleToggle = () => {
-    const randomColor = Math.floor(Math.random() * colors.length);
-
-    setCalculatorColor(colors[randomColor]);
+  // const onHandleToggle = () => {
+  //   const randomColor = Math.floor(Math.random() * colors.length);
+  //   setCalculatorColor(colors[randomColor]);
+  // };
+  const toggleCover = () => {
+    setShowCover(!showCover);
   };
-  console.log("result: ", calculateState.result);
 
   return (
-    <div className="">
-      <div className=" bg-blue-100 min-h-screen flex justify-center items-center h-0 w-full m-0 fixed">
+    <div className="bg-blue-100 min-h-screen flex justify-center items-center">
+      <div
+        className={`relative w-full max-w-sm p-6 rounded-3xl shadow-md`}
+        style={{ backgroundColor: calculatorColor }}
+      >
+        {/* Sliding Cover */}
         <div
-          className={`p-6 rounded-3xl shadow-md ${calculatorColor}`}
-          style={{ backgroundColor: calculatorColor }}
+          className={`absolute top-0 left-0 w-full h-full bg-gray-700 transition-transform duration-500 ease-in-out ${
+            showCover
+              ? "transform -translate-y-0"
+              : "transform -translate-y-full"
+          }`}
+          style={{ zIndex: 10 }}
         >
+          <button
+            className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded"
+            onClick={toggleCover}
+          >
+            Open Calculator
+          </button>
+        </div>
+
+        {!showCover && (
+          <button
+            className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded"
+            onClick={toggleCover}
+          >
+            Close Calculator
+          </button>
+        )}
+
+        {/* Calculator Content */}
+        <div>
           <h1 className="font-bold p-5 -mt-3 text-white">My Calculator</h1>
           <div className="text-right p-4 rounded mb-3 bg-white">
             <p>{calculateState.inputStr || 0}</p>
@@ -89,10 +118,9 @@ const Calculator = () => {
           </div>
 
           <div className="grid grid-cols-4 gap-2 ">
-            {/* First Row*/}
             <button
               className="col-span-2 p-2 bg-red-500 rounded text-white hover:bg-red-700 duration-300"
-              onClick={() => onHandleClear()}
+              onClick={onHandleClear}
             >
               AC
             </button>
@@ -108,9 +136,9 @@ const Calculator = () => {
             >
               /
             </button>
-            {/* Second Row*/}
+            {/* Number and operator buttons */}
             <button
-              className="p-2  bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
+              className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
               onClick={() => onHandleNumber(7)}
             >
               7
@@ -122,7 +150,7 @@ const Calculator = () => {
               8
             </button>
             <button
-              className="p-2 w-20 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
+              className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
               onClick={() => onHandleNumber(9)}
             >
               9
@@ -133,7 +161,6 @@ const Calculator = () => {
             >
               *
             </button>
-            {/* Third Row*/}
             <button
               className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
               onClick={() => onHandleNumber(4)}
@@ -158,7 +185,6 @@ const Calculator = () => {
             >
               -
             </button>
-            {/* Fourth Row*/}
             <button
               className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
               onClick={() => onHandleNumber(1)}
@@ -183,7 +209,6 @@ const Calculator = () => {
             >
               +
             </button>
-            {/* Fifth Row*/}
             <button
               className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
               onClick={() => onHandleNumber("00")}
@@ -204,19 +229,12 @@ const Calculator = () => {
             </button>
             <button
               className="p-2 bg-gray-300 rounded hover:text-white hover:bg-gray-400 duration-300"
-              onClick={() => onHandleEqual("=")}
+              onClick={onHandleEqual}
             >
               =
             </button>
           </div>
         </div>
-        <button
-          className={`bg-gray-600 w-fit p-1 ml-3 rounded-md hover:text-white `}
-          style={{ backgroundColor: calculatorColor }}
-          onClick={onHandleToggle}
-        >
-          Click me
-        </button>
       </div>
     </div>
   );
