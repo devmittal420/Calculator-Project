@@ -5,7 +5,7 @@ const initialState = {
   previousValue: "",
   operator: null,
   inputStr: "0",
-  result: "0",
+  result: "",
 };
 
 const CalculatorSlice = createSlice({
@@ -14,6 +14,8 @@ const CalculatorSlice = createSlice({
   reducers: {
     inputValue: (state, action) => {
       state.currentValue = `${state.currentValue}${action.payload}`;
+      console.log("state: ", state.currentValue);
+
       state.inputStr = `${state.inputStr}${action.payload}`;
     },
     setOperator: (state, action) => {
@@ -22,29 +24,29 @@ const CalculatorSlice = createSlice({
       let previousResult;
       switch (state.operator) {
         case "+":
-          state.previousResult = +state.previousValue + +state.currentValue;
+          previousResult = +state.previousValue + +state.currentValue;
           break;
         case "-":
-          state.previousResult = +state.previousValue - +state.currentValue;
+          previousResult = +state.previousValue - +state.currentValue;
           break;
         case "*":
-          state.previousResult = +state.previousValue * +state.currentValue;
+          previousResult = +state.previousValue * +state.currentValue;
           break;
         case "/":
-          state.previousResult = +state.previousValue / +state.currentValue;
+          previousResult = +state.previousValue / +state.currentValue;
           break;
         case "%":
-          state.previousResult = +state.previousValue % +state.currentValue;
+          previousResult = +state.previousValue % +state.currentValue;
           break;
         default:
-          state.previousResult = +state.currentValue;
+          previousResult = +state.currentValue;
       }
       // const previousResult = SetOperatorResult({
       //   previousValue: state.previousValue,
       //   currentValue: state.currentValue,
       //   operator: state.operator,
       // });
-      state.previousValue = state.previousResult;
+      state.previousValue = previousResult;
       state.operator = action.payload;
       state.inputStr += action.payload;
       state.currentValue = "0";
@@ -58,24 +60,29 @@ const CalculatorSlice = createSlice({
       let previousResult;
       switch (state.operator) {
         case "+":
-          state.previousResult = +state.previousValue + +state.currentValue;
+          previousResult = +state.previousValue + +state.currentValue;
           break;
         case "-":
-          state.previousResult = +state.previousValue - +state.currentValue;
+          previousResult = +state.previousValue - +state.currentValue;
           break;
         case "*":
-          state.previousResult = +state.previousValue * +state.currentValue;
+          previousResult = +state.previousValue * +state.currentValue;
           break;
         case "/":
-          state.previousResult = +state.previousValue / +state.currentValue;
+          previousResult = +state.previousValue / +state.currentValue;
           break;
         case "%":
-          state.previousResult = +state.previousValue % +state.currentValue;
+          previousResult = +state.previousValue % +state.currentValue;
           break;
         default:
-          state.previousResult = +state.currentValue;
+          previousResult = +state.currentValue;
       }
-      state.result = state.previousResult;
+      console.log("previousValue: ", state.previousValue);
+      console.log("currentValue: ", state.currentValue);
+      console.log("operator: ", state.operator);
+      console.log("previousResult: ", state.previousResult);
+
+      state.result = previousResult;
     },
     clearDisplay: (state) => {
       state.currentValue = "0";

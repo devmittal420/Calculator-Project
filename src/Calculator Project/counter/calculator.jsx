@@ -78,36 +78,43 @@ const Calculator = () => {
   };
 
   return (
-    <div className="bg-blue-100 min-h-screen flex justify-center items-center">
+    <div className="bg-orange-100 min-h-screen flex justify-center items-center fixed left-0 right-0 ">
       <div
         className={`relative w-full max-w-sm p-6 rounded-3xl shadow-md`}
         style={{ backgroundColor: calculatorColor }}
       >
         {/* Sliding Cover */}
         <div
-          className={`absolute top-0 left-0 w-full h-full bg-gray-700 transition-transform duration-500 ease-in-out ${
+          className={`absolute top-0 left-0 w-full h-full transition-transform duration-1000 ease-in-out rounded-3xl ${
             showCover
               ? "transform -translate-y-0"
-              : "transform -translate-y-full"
+              : "transform -translate-x-[370px]"
           }`}
-          style={{ zIndex: 10 }}
+          style={{
+            zIndex: 10,
+            backgroundImage:
+              'URL("src/Calculator Project/components/Image/premium_photo-1677109899683-9d449c66d9e8.jpeg.jpg")',
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
         >
           <button
-            className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded"
+            className="absolute top-4 right-4 bg-orange-300 hover:bg-orange-600 duration-200 text-white p-2 rounded-3xl"
             onClick={toggleCover}
           >
-            Open Calculator
+            {showCover ? "Open Calculator" : "Close Calculator"}
           </button>
         </div>
 
-        {!showCover && (
+        {/* {!showCover && (
           <button
             className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded"
             onClick={toggleCover}
           >
-            Close Calculator
-          </button>
-        )}
+            {showCover ? "Open Calculator" : "Close Calculator"}
+            </button>
+        )} */}
 
         {/* Calculator Content */}
         <div>
