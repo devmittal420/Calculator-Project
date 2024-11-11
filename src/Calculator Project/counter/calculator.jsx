@@ -10,30 +10,30 @@ import {
 } from "./calculatorslice";
 
 const Calculator = () => {
-  const [calculatorColor, setCalculatorColor] = useState("#FFDAB9");
+  // const [calculatorColor, setCalculatorColor] = useState("#FFDAB9");
   const [showCover, setShowCover] = useState(true);
-  const colors = [
-    "#FF6347",
-    "#40E0D0",
-    "#1E90FF",
-    "#32CD32",
-    "#FFD700",
-    "#DC143C",
-    "#8A2BE2",
-    "#FF8C00",
-    "#FF1493",
-    "#00CED1",
-    "#FF4500",
-    "#98FB98",
-    "#7FFF00",
-    "#8B0000",
-    "#A52A2A",
-    "#D2691E",
-    "#BA55D3",
-    "#00BFFF",
-    "#ADFF2F",
-    "#FFDAB9",
-  ];
+  // const colors = [
+  //   "#FF6347",
+  //   "#40E0D0",
+  //   "#1E90FF",
+  //   "#32CD32",
+  //   "#FFD700",
+  //   "#DC143C",
+  //   "#8A2BE2",
+  //   "#FF8C00",
+  //   "#FF1493",
+  //   "#00CED1",
+  //   "#FF4500",
+  //   "#98FB98",
+  //   "#7FFF00",
+  //   "#8B0000",
+  //   "#A52A2A",
+  //   "#D2691E",
+  //   "#BA55D3",
+  //   "#00BFFF",
+  //   "#ADFF2F",
+  //   "#FFDAB9",
+  // ];
 
   const calculateState = useSelector((state) => state.calculator);
   const dispatch = useDispatch();
@@ -83,10 +83,10 @@ const Calculator = () => {
   };
 
   return (
-    <div className="bg-slate-200 min-h-screen flex justify-center items-center fixed left-0 right-0 ">
+    <div className="bg-slate-300 min-h-screen flex justify-center items-center fixed left-0 right-0 ">
       <div
-        className={`relative w-full max-w-sm p-6 rounded-3xl shadow-md`}
-        style={{ backgroundColor: calculatorColor }}
+        className={`relative w-[500px] h-[500px] max-w-sm p-6 rounded-3xl shadow-md bg-slate-400`}
+        // style={{ backgroundColor: calculatorColor }}
       >
         {/* Sliding Cover */}
         <div
@@ -105,21 +105,21 @@ const Calculator = () => {
           }}
         >
           <button
-            className="absolute top-4 right-4 bg-slate-300 hover:bg-slate-400 duration-200 text-white p-2 rounded-3xl"
+            className="absolute top-4 right-4 bg-gray-300 hover:bg-gray-400 duration-200 text-white p-2 rounded-3xl"
             onClick={toggleCover}
           >
             {showCover ? "Open Calculator" : "Close Calculator"}
-          </button>
+          </button> 
         </div>
 
-        {/* {!showCover && (
+        {!showCover && (
           <button
-            className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded"
+            className="absolute top-4 right-4 bg-gray-300 hover:bg-gray-400 duration-200 text-white p-2 rounded-3xl"
             onClick={toggleCover}
           >
             {showCover ? "Open Calculator" : "Close Calculator"}
             </button>
-        )} */}
+        )}
 
         {/* Calculator Content */}
         <div>

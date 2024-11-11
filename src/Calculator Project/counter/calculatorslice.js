@@ -77,10 +77,10 @@ const CalculatorSlice = createSlice({
         default:
           previousResult = +state.currentValue;
       }
-      console.log("previousValue: ", state.previousValue);
-      console.log("currentValue: ", state.currentValue);
-      console.log("operator: ", state.operator);
-      console.log("previousResult: ", state.previousResult);
+      // console.log("previousValue: ", state.previousValue);
+      // console.log("currentValue: ", state.currentValue);
+      // console.log("operator: ", state.operator);
+      // console.log("previousResult: ", state.previousResult);
 
       state.result = previousResult;
     },
