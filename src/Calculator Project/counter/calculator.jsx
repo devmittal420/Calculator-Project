@@ -51,6 +51,8 @@ const Calculator = () => {
         dispatch(clearDisplay(key));
       } else if (key === "Backspace") {
         dispatch(backspace());
+      } else if (key === "o") {
+        setShowCover((prev) => !prev);
       }
     };
     window.addEventListener("keydown", onHandleKey);
@@ -69,16 +71,19 @@ const Calculator = () => {
   const onHandleClear = () => {
     dispatch(clearDisplay());
   };
+  const onHandleBackspace = () => {
+    dispatch(backspace());
+  };
   // const onHandleToggle = () => {
   //   const randomColor = Math.floor(Math.random() * colors.length);
   //   setCalculatorColor(colors[randomColor]);
   // };
   const toggleCover = () => {
-    setShowCover(!showCover);
+    setShowCover((prev) => !prev);
   };
 
   return (
-    <div className="bg-orange-100 min-h-screen flex justify-center items-center fixed left-0 right-0 ">
+    <div className="bg-slate-200 min-h-screen flex justify-center items-center fixed left-0 right-0 ">
       <div
         className={`relative w-full max-w-sm p-6 rounded-3xl shadow-md`}
         style={{ backgroundColor: calculatorColor }}
@@ -93,14 +98,14 @@ const Calculator = () => {
           style={{
             zIndex: 10,
             backgroundImage:
-              'URL("https://i.postimg.cc/0QhyVkb2/premium-photo-1677109899683-9d449c66d9e8-jpeg.jpg")',
+              'URL("https://i.postimg.cc/44hSqfYk/IMG-20241111-190333.jpg")',
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
           }}
         >
           <button
-            className="absolute top-4 right-4 bg-orange-300 hover:bg-orange-600 duration-200 text-white p-2 rounded-3xl"
+            className="absolute top-4 right-4 bg-slate-300 hover:bg-slate-400 duration-200 text-white p-2 rounded-3xl"
             onClick={toggleCover}
           >
             {showCover ? "Open Calculator" : "Close Calculator"}
@@ -126,11 +131,12 @@ const Calculator = () => {
 
           <div className="grid grid-cols-4 gap-2 ">
             <button
-              className="col-span-2 p-2 bg-red-500 rounded text-white hover:bg-red-700 duration-300"
+              className=" p-2 bg-red-500 rounded text-white hover:bg-red-700 duration-300"
               onClick={onHandleClear}
             >
               AC
             </button>
+
             <button
               className="p-2 bg-gray-300 rounded hover:text-white hover:bg-gray-400 duration-300"
               onClick={() => onHandleOperator("%")}
@@ -139,10 +145,17 @@ const Calculator = () => {
             </button>
             <button
               className="p-2 bg-gray-300 rounded hover:text-white hover:bg-gray-400 duration-300"
+              onClick={onHandleBackspace}
+            >
+              Del
+            </button>
+            <button
+              className="p-2 bg-gray-300 rounded hover:text-white hover:bg-gray-400 duration-300"
               onClick={() => onHandleOperator("/")}
             >
               /
             </button>
+
             {/* Number and operator buttons */}
             <button
               className="p-2 bg-white rounded hover:text-white hover:bg-gray-200 duration-300"
