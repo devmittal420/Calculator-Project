@@ -93,7 +93,7 @@ const Calculator = () => {
           style={{
             zIndex: 10,
             backgroundImage:
-              'URL("src/Calculator Project/components/Image/premium_photo-1677109899683-9d449c66d9e8.jpeg.jpg")',
+              'URL("https://i.postimg.cc/0QhyVkb2/premium-photo-1677109899683-9d449c66d9e8-jpeg.jpg")',
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
